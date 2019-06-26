@@ -1,0 +1,10 @@
+br/com/cris/mercadoonline/resource/LancamentoResource.class
+br/com/cris/mercadoonline/MercadoonlineApplication.class
+br/com/cris/mercadoonline/config/SwaggerConfiguration.class
+br/com/cris/mercadoonline/utils/ResourceUtils.class
+br/com/cris/mercadoonline/event/ReturnResourceListener.class
+br/com/cris/mercadoonline/handler/ResourceCatchHandler.class
+br/com/cris/mercadoonline/utils/Errors.class
+br/com/cris/mercadoonline/resource/CategoriaResource.class
+br/com/cris/mercadoonline/event/ReturnResourceEvent.class
+br/com/cris/mercadoonline/resource/PessoaResource.class

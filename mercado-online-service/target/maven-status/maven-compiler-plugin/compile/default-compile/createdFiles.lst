@@ -1,0 +1,10 @@
+br/com/cris/mercadoonline/dto/CategoriaDTO.class
+br/com/cris/mercadoonline/dto/PessoaDTO.class
+br/com/cris/mercadoonline/service/GenericService.class
+br/com/cris/mercadoonline/service/LancamentoService.class
+br/com/cris/mercadoonline/service/CategoriaService.class
+br/com/cris/mercadoonline/dto/LancamentoDTO.class
+br/com/cris/mercadoonline/dto/LancamentoDTO$LancamentoDTOBuilder.class
+br/com/cris/mercadoonline/service/PessoaService.class
+br/com/cris/mercadoonline/dto/CategoriaDTO$CategoriaDTOBuilder.class
+br/com/cris/mercadoonline/dto/PessoaDTO$PessoaDTOBuilder.class

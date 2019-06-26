@@ -1,0 +1,10 @@
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-api/src/main/java/br/com/cris/mercadoonline/handler/ResourceCatchHandler.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-api/src/main/java/br/com/cris/mercadoonline/resource/LancamentoResource.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-api/src/main/java/br/com/cris/mercadoonline/MercadoonlineApplication.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-api/src/main/java/br/com/cris/mercadoonline/resource/PessoaResource.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-api/src/main/java/br/com/cris/mercadoonline/utils/Errors.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-api/src/main/java/br/com/cris/mercadoonline/event/ReturnResourceEvent.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-api/src/main/java/br/com/cris/mercadoonline/utils/ResourceUtils.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-api/src/main/java/br/com/cris/mercadoonline/event/ReturnResourceListener.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-api/src/main/java/br/com/cris/mercadoonline/resource/CategoriaResource.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-api/src/main/java/br/com/cris/mercadoonline/config/SwaggerConfiguration.java

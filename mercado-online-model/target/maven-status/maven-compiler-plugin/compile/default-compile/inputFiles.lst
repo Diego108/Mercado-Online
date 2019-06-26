@@ -1,0 +1,9 @@
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-model/src/main/java/br/com/cris/mercadoonline/model/TipoUsuario.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-model/src/main/java/br/com/cris/mercadoonline/model/TipoResidencia.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-model/src/main/java/br/com/cris/mercadoonline/model/Categoria.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-model/src/main/java/br/com/cris/mercadoonline/repository/CategoriaRepository.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-model/src/main/java/br/com/cris/mercadoonline/model/Pessoa.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-model/src/main/java/br/com/cris/mercadoonline/repository/PessoaRepository.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-model/src/main/java/br/com/cris/mercadoonline/model/Lancamento.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-model/src/main/java/br/com/cris/mercadoonline/model/Endereco.java
+/home/familia/Documentos/Estudos/Mercado-Online/mercado-online-model/src/main/java/br/com/cris/mercadoonline/repository/LancamentoRepository.java
