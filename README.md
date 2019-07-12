@@ -1,2 +1,2 @@
 # Mercado-Online
-Mercado online
+Projeto de e-commerce focado em compra/venda em real-time.
