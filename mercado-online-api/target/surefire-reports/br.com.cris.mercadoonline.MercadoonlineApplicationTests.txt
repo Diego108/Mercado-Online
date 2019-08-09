@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: br.com.cris.mercadoonline.MercadoonlineApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 34.675 s - in br.com.cris.mercadoonline.MercadoonlineApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.371 s - in br.com.cris.mercadoonline.MercadoonlineApplicationTests

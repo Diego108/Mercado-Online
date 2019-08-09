@@ -6,5 +6,4 @@ import br.com.cris.mercadoonline.model.Categoria;
 
 @Service
 public class CategoriaService extends GenericService<Categoria, Integer>{
-	
 }

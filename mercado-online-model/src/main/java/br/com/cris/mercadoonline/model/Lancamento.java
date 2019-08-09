@@ -3,12 +3,13 @@ package br.com.cris.mercadoonline.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -39,11 +40,9 @@ public class Lancamento {
 	
 	private String observacao;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_pessoa")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Pessoa pessoa;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_categoria")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Categoria categoria;
 }

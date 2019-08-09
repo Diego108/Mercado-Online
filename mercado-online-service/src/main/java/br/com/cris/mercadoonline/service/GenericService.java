@@ -26,13 +26,16 @@ public class GenericService<T , ID>{
 		return this.genericRepository.findById(id);
 	}
 	
-	public void delete(ID id) {
+	public boolean delete(ID id) {
 		
 		Optional<T> t = this.genericRepository.findById(id);
 		
 		if(t.isPresent()) {
 			
 			this.genericRepository.delete(t.get());
+			return true;
 		}
+		
+		return false;
 	}
 }
