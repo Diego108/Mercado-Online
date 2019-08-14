@@ -6,10 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public class GenericService<T , ID>{
+public class GenericService<T , I>{
 	
 	@Autowired
-	private JpaRepository<T, ID> genericRepository;
+	private JpaRepository<T, I> genericRepository;
 	
 	public  T save(T t) {
 		
@@ -21,12 +21,12 @@ public class GenericService<T , ID>{
 		return this.genericRepository.findAll();
 	}
 	
-	public Optional<T> findById(ID id){
+	public Optional<T> findById(I id){
 		
 		return this.genericRepository.findById(id);
 	}
 	
-	public boolean delete(ID id) {
+	public boolean delete(I id) {
 		
 		Optional<T> t = this.genericRepository.findById(id);
 		

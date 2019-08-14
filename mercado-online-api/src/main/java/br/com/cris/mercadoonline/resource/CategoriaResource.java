@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,10 +25,18 @@ import br.com.cris.mercadoonline.model.Categoria;
 import br.com.cris.mercadoonline.service.CategoriaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController()
 @RequestMapping("/categorias")
 @Api(value = "Eventos API REST - Categoria Resource")
+@ApiResponses(value = { 
+		@ApiResponse(code = 200, message = "Operação realizada com sucesso."),
+		@ApiResponse(code = 401, message = "Não autorizado para visualização."),
+		@ApiResponse(code = 403, message = "O recurso que você está tentando acessar é proibido."),
+		@ApiResponse(code = 404, message = "O recurso que você está tentando acessar não foi encontrado.") 
+})
 public class CategoriaResource {
 
 	@Autowired
@@ -56,7 +65,7 @@ public class CategoriaResource {
 		Optional<Categoria> categoria = this.categoriaService.findById(id);
 		
 		if(categoria.isPresent()) {
-			CategoriaDTO categoriaDTO = CategoriaDTO.builder().nome(categoria.get().getNome()).build();
+			CategoriaDTO categoriaDTO = CategoriaDTO.builder().nome(categoria.get().getNome()).id(categoria.get().getId()).build();
 			return ResponseEntity.ok().body(categoriaDTO);
 		}else {
 			
@@ -68,13 +77,29 @@ public class CategoriaResource {
 	@PostMapping()
 	public ResponseEntity<Categoria> save(@RequestBody @Valid CategoriaDTO categoriaDTO, HttpServletResponse httpServletResponse){
 		
-		if(categoriaDTO.getNome() != null || categoriaDTO.getNome().length() > 0) {
+		if(categoriaDTO.getNome() != null && categoriaDTO.getNome().length() > 0) {
+			
 			Categoria categoriaSave = this.categoriaService.save(Categoria.valueOf(categoriaDTO));
 			this.applicationEventPublisher.publishEvent(new ReturnResourceEvent(categoriaSave, httpServletResponse, categoriaSave.getId()));		
+			
 			return ResponseEntity.status(HttpStatus.CREATED).body(categoriaSave);
-		}
+	    }
 			
 		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
+	}
+	
+	@ApiOperation(value = "Retorna um recurso de Categoria.")
+	@PutMapping()
+	public ResponseEntity<Categoria> update(@RequestBody @Valid CategoriaDTO categoriaDTO, HttpServletResponse httpServletResponse){
+		
+		Categoria categoriaUpdate = null;
+		
+		if(categoriaDTO.getNome() != null && categoriaDTO.getNome().length() > 0 && categoriaDTO.getId() != 0) {
+			
+			categoriaUpdate = this.categoriaService.save(Categoria.valueOf(categoriaDTO));
+			this.applicationEventPublisher.publishEvent(new ReturnResourceEvent(categoriaUpdate, httpServletResponse, categoriaUpdate.getId()));		
+		}
+		return ResponseEntity.status(HttpStatus.CREATED).body(categoriaUpdate);
 	}
 	
 	@ApiOperation(value = "Retorna um recurso de Categoria.")
@@ -86,6 +111,6 @@ public class CategoriaResource {
 			return ResponseEntity.status(HttpStatus.OK).body(true);
 		}
 		
-		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 }
