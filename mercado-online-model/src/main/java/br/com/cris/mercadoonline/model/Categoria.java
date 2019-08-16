@@ -1,9 +1,12 @@
 package br.com.cris.mercadoonline.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -25,6 +28,10 @@ public class Categoria {
 	
 	private String nome;
 
+	@JoinColumn(name = "ID_CATEGORIA_PAI")
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Categoria categoriaPai;
+	
 	@Transient
 	private static Categoria categoria;
 	
@@ -36,10 +43,12 @@ public class Categoria {
 		
 		categoria.setId(categoriaDTO.getId());
 		categoria.setNome(categoriaDTO.getNome());
+		categoria.setCategoriaPai(null);
 		
 		return categoria;
 	}
-	
+
+
 	public static Categoria getInstance(){
 		
 		if ( categoria != null) {

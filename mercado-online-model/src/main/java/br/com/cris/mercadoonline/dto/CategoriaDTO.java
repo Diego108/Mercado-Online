@@ -15,4 +15,5 @@ public class CategoriaDTO {
 
 	private Integer id;
 	private String nome;
+	private Integer idPai;
 }

@@ -1,5 +1,6 @@
 package br.com.cris.mercadoonline.resource;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,54 +64,89 @@ public class CategoriaResource {
 	public ResponseEntity<CategoriaDTO> findById(@PathVariable Integer id){
 		
 		Optional<Categoria> categoria = this.categoriaService.findById(id);
-		
-		if(categoria.isPresent()) {
-			CategoriaDTO categoriaDTO = CategoriaDTO.builder().nome(categoria.get().getNome()).id(categoria.get().getId()).build();
+
+		if (categoria.isPresent()) {
+			CategoriaDTO categoriaDTO = CategoriaDTO.builder().nome(categoria.get().getNome())
+					.id(categoria.get().getId()).build();
 			return ResponseEntity.ok().body(categoriaDTO);
-		}else {
-			
+		} else {
+
 			return ResponseEntity.noContent().build();
 		}
 	}
 	
 	@ApiOperation(value = "Retorna um recurso de Categoria.")
-	@PostMapping()
-	public ResponseEntity<Categoria> save(@RequestBody @Valid CategoriaDTO categoriaDTO, HttpServletResponse httpServletResponse){
-		
-		if(categoriaDTO.getNome() != null && categoriaDTO.getNome().length() > 0) {
+	@GetMapping("/findByCategoriaPai/{id}")
+	public ResponseEntity<List<CategoriaDTO>> findByCategoriaPai(@PathVariable Integer id) {
+
+		List<CategoriaDTO> categoriasDTO = Collections.emptyList();
+		List<Categoria> categorias = this.categoriaService.findByCategoriaPai(id);
+
+		if (!categorias.isEmpty()) {
 			
-			Categoria categoriaSave = this.categoriaService.save(Categoria.valueOf(categoriaDTO));
-			this.applicationEventPublisher.publishEvent(new ReturnResourceEvent(categoriaSave, httpServletResponse, categoriaSave.getId()));		
-			
-			return ResponseEntity.status(HttpStatus.CREATED).body(categoriaSave);
-	    }
-			
-		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
+			categorias.forEach(data -> categoriasDTO.add(CategoriaDTO.builder().id(data.getId()).nome(data.getNome()).build()));
+			return ResponseEntity.ok().body(categoriasDTO);
+		} else {
+
+			return ResponseEntity.noContent().build();
+		}
 	}
 	
+
+	@ApiOperation(value = "Retorna um recurso de Categoria.")
+	@PostMapping("/{idPai}")
+	public ResponseEntity<Categoria> save(@RequestBody @Valid CategoriaDTO categoriaDTO,
+			@PathVariable(value = "idPai") Integer idPai, HttpServletResponse httpServletResponse) {
+
+		if (categoriaDTO.getNome() != null && categoriaDTO.getNome().length() > 0) {
+
+			Optional<Categoria> categoriaPai = this.categoriaService.findById(categoriaDTO.getIdPai());
+			Categoria categoriaSave = Categoria.valueOf(categoriaDTO);
+
+			if (categoriaPai.isPresent()) {
+				categoriaSave.setCategoriaPai(categoriaPai.get());
+			}
+
+			this.categoriaService.save(categoriaSave);
+
+			this.applicationEventPublisher
+					.publishEvent(new ReturnResourceEvent(categoriaSave, httpServletResponse, categoriaSave.getId()));
+
+			return ResponseEntity.status(HttpStatus.CREATED).body(categoriaSave);
+		}
+
+		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
+	}
+
 	@ApiOperation(value = "Retorna um recurso de Categoria.")
 	@PutMapping()
-	public ResponseEntity<Categoria> update(@RequestBody @Valid CategoriaDTO categoriaDTO, HttpServletResponse httpServletResponse){
-		
+	public ResponseEntity<Categoria> update(@RequestBody @Valid CategoriaDTO categoriaDTO,
+			HttpServletResponse httpServletResponse) {
+
 		Categoria categoriaUpdate = null;
-		
-		if(categoriaDTO.getNome() != null && categoriaDTO.getNome().length() > 0 && categoriaDTO.getId() != 0) {
-			
-			categoriaUpdate = this.categoriaService.save(Categoria.valueOf(categoriaDTO));
-			this.applicationEventPublisher.publishEvent(new ReturnResourceEvent(categoriaUpdate, httpServletResponse, categoriaUpdate.getId()));		
+
+		if (categoriaDTO.getNome() != null && categoriaDTO.getNome().length() > 0 && categoriaDTO.getId() != 0) {
+
+			categoriaUpdate = Categoria.valueOf(categoriaDTO);
+
+			this.categoriaService.save(categoriaUpdate);
+
+			this.applicationEventPublisher.publishEvent(
+					new ReturnResourceEvent(categoriaUpdate, httpServletResponse, categoriaUpdate.getId()));
 		}
 		return ResponseEntity.status(HttpStatus.CREATED).body(categoriaUpdate);
 	}
-	
+
 	@ApiOperation(value = "Retorna um recurso de Categoria.")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Boolean> deletar(@PathVariable("id") Integer idCategoria, HttpServletResponse httpServletResponse){
+	public ResponseEntity<Boolean> deletar(@PathVariable("id") Integer idCategoria,
+			HttpServletResponse httpServletResponse) {
 
-		if(this.categoriaService.delete(idCategoria)) {
-		
+		if (this.categoriaService.delete(idCategoria)) {
+
 			return ResponseEntity.status(HttpStatus.OK).body(true);
 		}
-		
+
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 }
