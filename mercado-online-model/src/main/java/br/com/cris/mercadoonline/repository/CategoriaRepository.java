@@ -8,5 +8,5 @@ import br.com.cris.mercadoonline.model.Categoria;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer>{
 
-	public List<Categoria> findByCategoriaPai(Integer idPai);
+	public List<Categoria> findByCategoriaPai(Categoria idPai);
 }

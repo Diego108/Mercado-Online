@@ -14,8 +14,8 @@ public class CategoriaService extends GenericService<Categoria, Integer>{
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	
-	public List<Categoria> findByCategoriaPai(Integer idPai) {
+	public List<Categoria> findByCategoriaPai(Categoria categoriaPai) {
 	
-		return this.categoriaRepository.findByCategoriaPai(idPai);
+		return this.categoriaRepository.findByCategoriaPai(categoriaPai);
 	}
 }

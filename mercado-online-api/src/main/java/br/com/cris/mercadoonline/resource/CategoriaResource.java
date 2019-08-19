@@ -1,6 +1,6 @@
 package br.com.cris.mercadoonline.resource;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,14 +77,21 @@ public class CategoriaResource {
 	
 	@ApiOperation(value = "Retorna um recurso de Categoria.")
 	@GetMapping("/findByCategoriaPai/{id}")
-	public ResponseEntity<List<CategoriaDTO>> findByCategoriaPai(@PathVariable Integer id) {
+	public ResponseEntity<List<CategoriaDTO>> findByCategoriaPai(@PathVariable String id) {
 
-		List<CategoriaDTO> categoriasDTO = Collections.emptyList();
-		List<Categoria> categorias = this.categoriaService.findByCategoriaPai(id);
-
+		List<CategoriaDTO> categoriasDTO = new ArrayList<CategoriaDTO>();
+		Categoria categoria = Categoria.getInstance();
+		
+		categoria.setId(Integer.valueOf(!id.equals("undefined") ? id : "0"));
+		List<Categoria> categorias = this.categoriaService.findByCategoriaPai(categoria);	
+		
 		if (!categorias.isEmpty()) {
 			
-			categorias.forEach(data -> categoriasDTO.add(CategoriaDTO.builder().id(data.getId()).nome(data.getNome()).build()));
+			for(Categoria categ: categorias) {
+				
+				categoriasDTO.add(CategoriaDTO.builder().id(categ.getId()).nome(categ.getNome()).idPai(null).build());
+			}
+			
 			return ResponseEntity.ok().body(categoriasDTO);
 		} else {
 
