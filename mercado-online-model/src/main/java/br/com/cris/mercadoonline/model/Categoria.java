@@ -1,7 +1,7 @@
 package br.com.cris.mercadoonline.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,10 +26,11 @@ public class Categoria {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column(length = 30, unique = true)
 	private String nome;
 
 	@JoinColumn(name = "ID_CATEGORIA_PAI")
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne()
 	private Categoria categoriaPai;
 	
 	@Transient

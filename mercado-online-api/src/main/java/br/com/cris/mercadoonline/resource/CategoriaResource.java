@@ -79,7 +79,7 @@ public class CategoriaResource {
 	@GetMapping("/findByCategoriaPai/{id}")
 	public ResponseEntity<List<CategoriaDTO>> findByCategoriaPai(@PathVariable String id) {
 
-		List<CategoriaDTO> categoriasDTO = new ArrayList<CategoriaDTO>();
+		List<CategoriaDTO> categoriasDTO = new ArrayList<>();
 		Categoria categoria = Categoria.getInstance();
 		
 		categoria.setId(Integer.valueOf(!id.equals("undefined") ? id : "0"));
@@ -92,11 +92,10 @@ public class CategoriaResource {
 				categoriasDTO.add(CategoriaDTO.builder().id(categ.getId()).nome(categ.getNome()).idPai(null).build());
 			}
 			
-			return ResponseEntity.ok().body(categoriasDTO);
-		} else {
-
-			return ResponseEntity.noContent().build();
-		}
+			
+		} 
+		
+		return ResponseEntity.ok().body(categoriasDTO);
 	}
 	
 
